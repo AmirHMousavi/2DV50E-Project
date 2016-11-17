@@ -1,5 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
-import App from './components/App.js';
+import {Router, BrowserHistory} from 'react-router';
+import routes from './routes';
 
-render(<App/>, document.getElementById('app'));
+render(<Router history={BrowserHistory} routes={routes}/>, document.getElementById('app'));
