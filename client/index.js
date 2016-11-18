@@ -1,6 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
-import {Router, BrowserHistory} from 'react-router';
+import {Router, BrowserHistory, hashHistory } from 'react-router';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import {createStore,applyMiddleware} from 'redux';
@@ -11,5 +11,5 @@ const store=createStore(
 );
 
 render(<Provider store={store}>
-    <Router history={BrowserHistory} routes={routes}/>
+    <Router history={hashHistory } routes={routes}/>
     </Provider>, document.getElementById('app'));
