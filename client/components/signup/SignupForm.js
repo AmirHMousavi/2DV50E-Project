@@ -12,10 +12,18 @@ class SignupForm extends React.Component {
             password: '',
             passwordConfirmation: '',
             errors: {},
-            isLoading: false
+            isLoading: false,
+            invalid: false
         }
-        this.onChange = this.onChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+        this.onChange = this
+            .onChange
+            .bind(this);
+        this.onSubmit = this
+            .onSubmit
+            .bind(this);
+        this.checkUserExists = this
+            .checkUserExists
+            .bind(this);
     }
     onChange(event) {
         this.setState({
@@ -31,20 +39,45 @@ class SignupForm extends React.Component {
         return isValid;
     }
 
+    checkUserExists(event) {
+        const field = event.target.name;
+        const val = event.target.value;
+        if (val !== '') {
+            this
+                .props
+                .isUserExists(val)
+                .then(res => {
+                    let errors = this.state.errors;
+                    let invalid;
+                    if (res.data.user) {
+                        errors[field] = field + ' already exists';
+                        invalid = true;
+                    } else {
+                        errors[field] = '';
+                        invalid = false;
+                    }
+                    this.setState({errors, invalid})
+                });
+        }
+    }
+
     onSubmit(event) {
         event.preventDefault();
         //axios.post('/api/users',{user:this.state});
         if (this.isValid()) {
             this.setState({errors: {}, isLoading: true});
-            this.props.userSignupRequest(this.state).then(
-                () => {
-                    this.props.addFlashMessage({
-                        type:'sucess',
-                        text:'signup was successful'
-                    });
-                    this.context.router.push('#');
-                }, ({data}) => this.setState({errors: data, isLoading: false})
-                );
+            this
+                .props
+                .userSignupRequest(this.state)
+                .then(() => {
+                    this
+                        .props
+                        .addFlashMessage({type: 'sucess', text: 'signup was successful'});
+                    this
+                        .context
+                        .router
+                        .push('#');
+                }, ({data}) => this.setState({errors: data, isLoading: false}));
         }
     }
 
@@ -58,13 +91,15 @@ class SignupForm extends React.Component {
                     label="UserName"
                     onChange={this.onChange}
                     value={this.state.username}
-                    field="username"/>
+                    field="username"
+                    checkUserExists={this.checkUserExists}/>
                 <TextFieldGroup
                     error={errors.email}
                     label="Email"
                     onChange={this.onChange}
                     value={this.state.email}
-                    field="email"/>
+                    field="email"
+                    checkUserExists={this.checkUserExists}/>
                 <TextFieldGroup
                     error={errors.password}
                     label="Password"
@@ -81,7 +116,9 @@ class SignupForm extends React.Component {
                     field="passwordConfirmation"/>
 
                 <div className="form-group">
-                    <button disabled={this.state.isLoading} className="btn btn-primary btn-lg">SignUp</button>
+                    <button
+                        disabled={this.state.isLoading || this.state.invalid}
+                        className="btn btn-primary btn-lg">SignUp</button>
                 </div>
             </form>
         );
@@ -91,11 +128,12 @@ class SignupForm extends React.Component {
 
 SignupForm.propTypes = {
     userSignupRequest: React.PropTypes.func.isRequired,
-    addFlashMessage: React.PropTypes.func.isRequired
+    addFlashMessage: React.PropTypes.func.isRequired,
+    isUserExists: React.PropTypes.func.isRequired
 }
 
-SignupForm.contextTypes={
-    router:React.PropTypes.object.isRequired
+SignupForm.contextTypes = {
+    router: React.PropTypes.object.isRequired
 }
 
 export default SignupForm;
