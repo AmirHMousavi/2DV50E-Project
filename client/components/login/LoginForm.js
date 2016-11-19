@@ -6,8 +6,8 @@ import TextFieldGroup from '../common/TextFieldGroup';
 import validateInput from '../../../server/shared/validations/login';
 
 class LoginForm extends Component {
-constructor(props, context) {
-    super(props, context);
+constructor(props) {
+    super(props);
     this.state={
         identifier:'',
         password:'',
@@ -29,7 +29,7 @@ onSubmit(event){
     if(this.isValid()){
         this.setState({errors:{},isLoading:true});
         this.props.login(this.state).then(
-            (res)=>this.context.router.push('#'),
+            (res)=>this.context.router.push('/'),
             (err)=>this.setState({errors: err.data.errors,isLoading:false})
         );
     }
@@ -43,6 +43,7 @@ onChange(event){
         return (
             <form onSubmit={this.onSubmit}>
                 <h1>Login</h1>
+                { errors.form && <div className="alert alert-danger">{errors.form}</div> }
                 <TextFieldGroup
                     field="identifier"
                     label="Username / Email"
@@ -69,7 +70,7 @@ onChange(event){
 LoginForm.propTypes={
     login: React.PropTypes.func.isRequired
 }
-LoginForm.contextType={
+LoginForm.contextTypes={
     router: React.PropTypes.object.isRequired
 }
 

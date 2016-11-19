@@ -76,7 +76,7 @@ class SignupForm extends React.Component {
                     this
                         .context
                         .router
-                        .push('#');
+                        .push('/');
                 }, ({data}) => this.setState({errors: data, isLoading: false}));
         }
     }

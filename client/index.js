@@ -18,5 +18,5 @@ const store=createStore(
 );
 
 render(<Provider store={store}>
-    <Router history={hashHistory } routes={routes}/>
+    <Router history={BrowserHistory} routes={routes}/>
     </Provider>, document.getElementById('app'));
