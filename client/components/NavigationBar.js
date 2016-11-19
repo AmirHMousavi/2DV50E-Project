@@ -5,13 +5,16 @@ export default() => {
         <nav className="navbar navbar-default">
             <div className="container-fluid">
                 <div className="navbar-header">
-                <Link to="/" className="navbar-brand">myApp</Link>
+                    <Link to="/" className="navbar-brand">myApp</Link>
                 </div>
 
                 <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul className="nav navbar-nav navbar-right">
                         <li>
-                            <Link to="/signup">signup</Link>
+                            <Link to="/signup">Sign up</Link>
+                        </li>
+                        <li>
+                            <Link to="/login">Login</Link>
                         </li>
                     </ul>
                 </div>
