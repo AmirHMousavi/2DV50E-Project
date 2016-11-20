@@ -14,17 +14,17 @@ logout(event){
         const userLinks = (
             <ul className="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#" onClick={this.logout.bind(this)}>LogOut</a>
+                    <a href="#" onClick={this.logout.bind(this)}>Logga ut</a>
                 </li>
             </ul>
         );
         const gustLinks = (
             <ul className="nav navbar-nav navbar-right">
                 <li>
-                    <Link to="/signup">Sign up</Link>
+                    <Link to="/signup">Registrera</Link>
                 </li>
                 <li>
-                    <Link to="/login">Login</Link>
+                    <Link to="/login">Logga In</Link>
                 </li>
             </ul>
         );
@@ -32,7 +32,7 @@ logout(event){
             <nav className="navbar navbar-default">
                 <div className="container-fluid">
                     <div className="navbar-header">
-                        <Link to="/" className="navbar-brand">myApp</Link>
+                        <Link to="/" className="navbar-brand">Lära Svenska</Link>
                     </div>
                     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     {isAuthenticated ? userLinks : gustLinks}</div>
