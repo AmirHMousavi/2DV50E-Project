@@ -9,9 +9,11 @@ export default {
         path: '/',
         publicPath: '/'
     },
-    plugins:[
+    plugins : [
         new webpack.NoErrorsPlugin(),
-        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack
+            .optimize
+            .OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin()
     ],
     module : {
@@ -20,14 +22,18 @@ export default {
                 test: /\.js$/,
                 include: [
                     path.join(__dirname, 'client'),
-                    path.join(__dirname,'server/shared')
-                    ],
+                    path.join(__dirname, 'server/shared')
+                ],
                 exclude: /node_modules/,
-                loaders: ['react-hot','babel']
+                loaders: ['react-hot', 'babel']
             }
         ]
     },
     resolve : {
         extensions: ['', '.js']
+    },
+    node : {
+        net: 'empty',
+        dns: 'empty'
     }
 }
