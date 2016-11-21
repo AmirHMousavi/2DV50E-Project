@@ -5,10 +5,11 @@ exports.up = function(knex, Promise) {
       table.string('username').notNullable().unique();
       table.string('email').notNullable().unique();
       table.string('password_digest').notNullable();
+      table.integer('points');
       table.timestamps();
   });
 };
 
 exports.down = function(knex, Promise) {
-  
+  return knex.schema.dropTable('users');
 };

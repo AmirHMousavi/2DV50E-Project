@@ -17,8 +17,10 @@ export default(req, res, next) => {
                     .json({error: 'failed to authenticate'});
             } else {
                 User.query({
-                    where:{id:decoded.id},
-                    select:['email','id','username']
+                    where: {
+                        id: decoded.id
+                    },
+                        select: ['email', 'id', 'username', 'points']
                 })
                     .fetch()
                     .then(user => {
@@ -26,9 +28,11 @@ export default(req, res, next) => {
                             res
                                 .status(404)
                                 .json({error: 'user not found'});
+                        } else {
+                            req.currentUser = user;
+                            next();
                         }
-                        req.currentUser = user;
-                        next();
+
                     });
             }
         });

@@ -30,7 +30,7 @@ onSubmit(event){
         this.setState({errors:{},isLoading:true});
         this.props.login(this.state).then(
             (res)=>this.context.router.push('/'),
-            (err)=>this.setState({errors: err.data.errors,isLoading:false})
+            (err)=>this.setState({errors: err.response.data.errors,isLoading:false})
         );
     }
 }
